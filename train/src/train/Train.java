@@ -1,8 +1,5 @@
 package train;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Représentation d'un train. Un train est caractérisé par deux valeurs :
  * <ol>
@@ -20,7 +17,7 @@ import java.util.List;
  * @author Philippe Tanguy <philippe.tanguy@imt-atlantique.fr>
  * @version 0.3
  */
-public class Train implements Runnable{
+public class Train extends Thread {
 	private final String name;
 	private final Position pos;
 
@@ -34,11 +31,41 @@ public class Train implements Runnable{
 
 		this.name = name;
 		this.pos = p.clone();
+		this.pos.occupy();
 	}
 	
-	public void move(Element element) throws InterruptedException {
-		this.pos.setElement(element);
-		this.toString();
+	public void run() {
+		while (true) {
+			this.advance();
+			this.turnAround();
+		}
+	}
+	
+	public void advance() {
+		try {
+			sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Direction d = this.pos.getDirection();
+		Element p = this.pos.getPos();
+		
+		Element[] adjacents = p.getAdjacent();
+		
+		if (d == Direction.LR) {
+			this.pos.updatePosition(adjacents[1]);
+		}
+		else {
+			this.pos.updatePosition(adjacents[0]);
+		}
+	}
+	
+	public void turnAround() {
+		Element p = this.pos.getPos();
+		if (p.getClass() == Station.class) {
+			this.pos.turnAround();
+		}
 	}
 
 	@Override
@@ -49,31 +76,5 @@ public class Train implements Runnable{
 		result.append(" is on ");
 		result.append(this.pos);
 		return result.toString();
-	}
-
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		Element eltDummy = this.pos.getPos();
-		Railway r = eltDummy.getRailway();
-		Element[] eltsList = r.getElementsList();
-		
-		while (true) {
-			for (Element elt : eltsList) {
-				try {
-					move(elt);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				try {
-					Thread.sleep(10000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
-		
 	}
 }

@@ -10,21 +10,11 @@ package train;
  */
 public class Station extends Element {
 	private final int size;
-	private int freePlaces;
 
 	public Station(String name, int size) {
 		super(name);
 		if(name == null || size <=0)
 			throw new NullPointerException();
 		this.size = size;
-		this.freePlaces = size;
-	}
-	
-	public int getFreePlaces() {
-		return this.freePlaces;
-	}
-	
-	public void setFreePlaces(int places) {
-		this.freePlaces = places;
 	}
 }

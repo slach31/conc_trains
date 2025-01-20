@@ -16,41 +16,60 @@ package train;
 public abstract class Element {
 	private final String name;
 	protected Railway railway;
-	private boolean isEmpty;
+	private boolean isOccupied = false;
 
 	protected Element(String name) {
 		if(name == null)
 			throw new NullPointerException();
 		
 		this.name = name;
-		this.isEmpty = true;
 	}
 
-	public void setRailway(Railway r) {
+	public synchronized void setRailway(Railway r) {
 		if(r == null)
 			throw new NullPointerException();
 		
 		this.railway = r;
 	}
+	
+	public synchronized boolean getIsOccupied() {
+		return isOccupied;
+	}
+	
+	public synchronized void setIsOccupied(boolean b) {
+		this.isOccupied = b;
+		notifyAll();
+	}
+	
+	public synchronized Railway getRailway() {
+		return this.railway;
+	}
+	
+	
+	public synchronized Element[] getAdjacent() {
+		int index = this.railway.getIndex(this);
+		int length = this.railway.getSize();
+		
+		Element left = null;
+		Element right = null;
+		
+		if (0 < index && index < length - 1) {
+			left = this.railway.getElement(index - 1);
+			right = this.railway.getElement(index + 1);
+		} else if (index == 0) {
+			left = this;
+			right = this.railway.getElement(index + 1);
+		} else if(index == length - 1) {
+			left = this.railway.getElement(index - 1);
+			right = this;
+		}
+		Element [] adjacents = {left, right};
+		return adjacents;
+	}
+	
 
 	@Override
 	public String toString() {
 		return this.name;
-	}
-	
-	public boolean getElementStatus() {
-		return this.isEmpty;
-	}
-	
-	public void setElementStatus(boolean newStatus) {
-		this.isEmpty = newStatus;
-	}
-	
-	public String getName() {
-		return this.name;
-	}
-	
-	public Railway getRailway() {
-		return this.railway;
 	}
 }
