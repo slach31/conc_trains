@@ -63,6 +63,7 @@ public class Railway {
         return true;
     }
 
+    
 	@Override
 	public String toString() {
 		StringBuilder result = new StringBuilder();
@@ -76,4 +77,5 @@ public class Railway {
 		}
 		return result.toString();
 	}
+	
 }

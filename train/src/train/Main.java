@@ -15,10 +15,13 @@ public class Main {
 		System.out.println("\t" + r);
 		Position p = new Position(A, Direction.LR);
 		try {
+			
 			Train t1 = new Train("1", p);
 			t1.start();
+			System.out.println(t1);
 			Train t2 = new Train("2", p);
 			t2.start();
+			System.out.println(t2);
 			
 		} catch (BadPositionForTrainException e) {
 			System.out.println("Le train " + e.getMessage());

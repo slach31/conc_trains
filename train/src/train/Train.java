@@ -22,6 +22,9 @@ public class Train extends Thread {
 	private final Position pos;
 
 	public Train(String name, Position p) throws BadPositionForTrainException {
+		
+		super(name);
+		
 		if (name == null || p == null)
 			throw new NullPointerException();
 
@@ -29,15 +32,19 @@ public class Train extends Thread {
 		if (!(p.getPos() instanceof Station))
 			throw new BadPositionForTrainException(name);
 
+		
 		this.name = name;
 		this.pos = p.clone();
 		this.pos.occupy();
+		
 	}
 	
+	@Override
 	public void run() {
 		while (true) {
 			this.advance();
 			this.turnAround();
+			System.out.println(this);
 		}
 	}
 	

@@ -113,13 +113,14 @@ public class Position implements Cloneable {
 	    }
 
 	    Railway railway = e.getRailway();
-	    if (railway != null && !railway.getCurrentDirection().equals(this.direction)) {
+	    if (railway != null && !(railway.getCurrentDirection()).equals(this.direction)) {
 	        return false;
 	    }
 
 	    return true;
 	}
 
+	
 	@Override
 	public String toString() {
 		StringBuilder result = new StringBuilder(this.pos.toString());
