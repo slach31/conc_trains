@@ -19,6 +19,8 @@ public class Main {
 			t1.start();
 			Train t2 = new Train("2", p);
 			t2.start();
+			Train t3 = new Train("3", p);
+			t3.start();
 			
 		} catch (BadPositionForTrainException e) {
 			System.out.println("Le train " + e.getMessage());

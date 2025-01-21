@@ -49,27 +49,14 @@ public class Position implements Cloneable {
 		return this.direction;
 	}
 	
-	public void updatePosition(Element p) {
-	    synchronized (p) {
-	        while (!this.invariant(p)) {
-	            System.out.println(Thread.currentThread().getName() + " waiting");
-	            try {
-	                p.wait();
-	            } catch (InterruptedException e) {
-	            }
-	        }
+	public synchronized void updatePosition(Element p) {
+		if (p.getClass() == Section.class) {
+	    	p.enter(this.direction);
 	    }
-
-	    synchronized (this.pos) {
-	        this.pos.setIsOccupied(false);
-	    }
+		
+	    this.pos.leave();
+	    
 	    this.pos = p;
-
-	    if (this.pos.getClass() == Section.class) {
-	        synchronized (p) {
-	            this.pos.setIsOccupied(true);
-	        }
-	    }
 	    
 	    System.out.println(Thread.currentThread().getName() + " at: " + this.pos.toString());
 	}
@@ -107,18 +94,7 @@ public class Position implements Cloneable {
 		}	
 	}
 	
-	public boolean invariant(Element e) {
-	    if (e.getIsOccupied()) {
-	        return false;
-	    }
-
-	    Railway railway = e.getRailway();
-	    if (railway != null && !railway.getCurrentDirection().equals(this.direction)) {
-	        return false;
-	    }
-
-	    return true;
-	}
+	
 
 	@Override
 	public String toString() {

@@ -43,7 +43,7 @@ public class Railway {
 		}
 	}
 	
-	public synchronized Direction getCurrentDirection() {
+	public Direction getCurrentDirection() {
         return direction;
     }
 

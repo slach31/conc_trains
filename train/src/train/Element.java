@@ -25,14 +25,14 @@ public abstract class Element {
 		this.name = name;
 	}
 
-	public synchronized void setRailway(Railway r) {
+	public void setRailway(Railway r) {
 		if(r == null)
 			throw new NullPointerException();
 		
 		this.railway = r;
 	}
 	
-	public synchronized boolean getIsOccupied() {
+	public boolean getIsOccupied() {
 		return isOccupied;
 	}
 	
@@ -41,12 +41,42 @@ public abstract class Element {
 		notifyAll();
 	}
 	
-	public synchronized Railway getRailway() {
+	public Railway getRailway() {
 		return this.railway;
 	}
 	
+	public synchronized void leave() {
+		this.isOccupied = false;
+		notifyAll();
+	}
 	
-	public synchronized Element[] getAdjacent() {
+	public synchronized void enter(Direction d) {
+		while (!this.invariant(d)) {
+			System.out.println(Thread.currentThread().getName() + " waiting");
+			try {
+				wait();
+			} catch (InterruptedException e) {}
+		}
+		
+		this.isOccupied = true;
+		notifyAll();
+	}
+	
+	
+	public boolean invariant(Direction d) {
+	    if (this.isOccupied) {
+	        return false;
+	    }
+
+	    if (!this.railway.getCurrentDirection().equals(d)) {
+	        return false;
+	    }
+
+	    return true;
+	}
+	
+	
+	public Element[] getAdjacent() {
 		int index = this.railway.getIndex(this);
 		int length = this.railway.getSize();
 		
