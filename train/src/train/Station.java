@@ -7,9 +7,23 @@ package train;
  * 
  * @author Fabien Dagnat <fabien.dagnat@imt-atlantique.fr>
  * @author Philippe Tanguy <philippe.tanguy@imt-atlantique.fr>
+ * 
+ * Authors of the new implementation 
+ * @author Othmane EL AKRABA <othmane.el-akraba@imt-atlantique.net>
+ * @author Soufiane LACHGUER <soufiane.lachguer@imt-atlantique.net>
  */
 public class Station extends Element {
+	
+	// Size of the train station
 	private final int size;
+	
+	/**
+	 * 
+	 * Constructor for creating a station with a specified name and size
+	 * 
+	 * @param name The name of the station
+	 * @param size The size of the station
+	 */
 
 	public Station(String name, int size) {
 		super(name);
