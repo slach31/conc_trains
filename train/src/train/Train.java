@@ -42,12 +42,8 @@ public class Train extends Thread {
 	}
 	
 	public void advance() {
-		try {
-			sleep(1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		try {sleep(1000);} catch (InterruptedException e) {}
+		
 		Direction d = this.pos.getDirection();
 		Element p = this.pos.getPos();
 		
@@ -62,10 +58,24 @@ public class Train extends Thread {
 	}
 	
 	public void turnAround() {
+		
 		Element p = this.pos.getPos();
-		if (p.getClass() == Station.class) {
-			this.pos.turnAround();
+		
+		if (p instanceof Station) {
+		    Element[] adjacents = p.getAdjacent();
+	
+		    if (this.pos.getDirection() == Direction.LR && adjacents[1] instanceof Section) {
+		        return;
+		    }
+		    if (this.pos.getDirection() == Direction.RL && adjacents[0] instanceof Section) {
+		        return;
+		    }
+		    this.pos.turnAround();
 		}
+	}
+	
+	public Position getPosition() {
+	    return this.pos;
 	}
 
 	@Override
@@ -73,8 +83,8 @@ public class Train extends Thread {
 		StringBuilder result = new StringBuilder("Train[");
 		result.append(this.name);
 		result.append("]");
-		result.append(" is on ");
-		result.append(this.pos);
+		//result.append(" is on ");
+		//result.append(this.pos);
 		return result.toString();
 	}
 }

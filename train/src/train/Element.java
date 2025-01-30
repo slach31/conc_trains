@@ -50,25 +50,29 @@ public abstract class Element {
 		notifyAll();
 	}
 	
-	public synchronized void enter(Direction d) {
-		while (!this.invariant(d)) {
-			System.out.println(Thread.currentThread().getName() + " waiting");
+	public synchronized void enter(Element p, Direction d) {
+		SubRailway subRailway = railway.getSubRailway(p);
+		if (!d.equals(subRailway.getCurrentDirection())) {
+			subRailway.switchDirection();
+		}
+		while (!this.invariant(p, d)) {
 			try {
 				wait();
 			} catch (InterruptedException e) {}
 		}
 		
 		this.isOccupied = true;
-		notifyAll();
 	}
 	
 	
-	public boolean invariant(Direction d) {
+	public boolean invariant(Element p, Direction d) {
 	    if (this.isOccupied) {
+	    	System.out.println(Thread.currentThread().getName() + " waiting cuz occupied");
 	        return false;
 	    }
-
-	    if (!this.railway.getCurrentDirection().equals(d)) {
+	    SubRailway subRailway = railway.getSubRailway(p); 
+	    if (!subRailway.getCurrentDirection().equals(d)) {
+	    	System.out.println(Thread.currentThread().getName() + " waiting cuz direction" + d + " vs " + subRailway.getCurrentDirection());
 	        return false;
 	    }
 

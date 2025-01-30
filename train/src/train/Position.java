@@ -51,7 +51,7 @@ public class Position implements Cloneable {
 	
 	public synchronized void updatePosition(Element p) {
 		if (p.getClass() == Section.class) {
-	    	p.enter(this.direction);
+	    	p.enter(p, this.direction);
 	    }
 		
 	    this.pos.leave();
@@ -72,20 +72,14 @@ public class Position implements Cloneable {
 	}
 	
 	public void turnAround() {
-		Railway railway = this.pos.getRailway();
-		synchronized (railway) {
-		if (this.direction == Direction.LR) {
-			this.updateDirection(Direction.RL);
-			railway.switchDirection();
-			//System.out.println("Train is going to switch directions");
-		}
-		else if (this.direction == Direction.RL){
-			this.updateDirection(Direction.LR);
-	        railway.switchDirection();
-			//System.out.println("Train going to switch directions");
-		}
-		}
-		
+	    Railway railway = this.pos.getRailway();
+	    synchronized (railway) {
+	        Direction newDirection = (this.direction == Direction.LR) ? Direction.RL : Direction.LR;
+	        this.updateDirection(newDirection); // Update the train's direction
+	        SubRailway subRailway = railway.getSubRailway(this.pos); 
+	        subRailway.switchDirection(); // Notify the railway to switch direction
+	        System.out.println("Train is now going " + this.direction);
+	    }
 	}
 	
 	public void occupy() {
