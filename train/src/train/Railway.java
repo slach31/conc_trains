@@ -9,12 +9,29 @@ import java.util.List;
  * 
  * @author Fabien Dagnat <fabien.dagnat@imt-atlantique.fr>
  * @author Philippe Tanguy <philippe.tanguy@imt-atlantique.fr>
+ * Authors of the new implementation 
+ * @author Othmane EL AKRABA <othmane.el-akraba@imt-atlantique.net>
+ * @author Soufiane LACHGUER <soufiane.lachguer@imt-atlantique.net>
  */
 public class Railway {
+	
+	// Array of elements of a railway
 	protected final Element[] elements;
+	
+	// Array of stations of a railway
 	private Element[] stations;
+	
+	// Array of subrailways of a railway
 	private SubRailway[] subRailways;
 
+	/**
+	 * 
+	 * Constructor that initializes a railway with an array of elements 
+	 * subrailways and stations
+	 * 
+	 * @param elements Elements of the railway (must not be null)
+	 * @throws NullPointerException If the entered array is null 
+	 */
 	public Railway(Element[] elements) {
 		if(elements == null)
 			throw new NullPointerException();
@@ -26,10 +43,24 @@ public class Railway {
 		this.initStations();
 	}
 	
+	/**
+	 * 
+	 * Returns the length of the railway (via counting the elements that compose it)
+	 * 
+	 * @return length of the railway
+	 */
 	public int getSize() {
 		return this.elements.length;
 	}
 	
+	/**
+	 * 
+	 * Return the index (order) of an element in a railway.
+	 * If the element doesn't exist in the railway, it returns -1 instead.
+	 * 
+	 * @param e Element in a railway
+	 * @return The index of a railway (if it exists in the railway), else -1 
+	 */
 	public int getIndex(Element e) {
 		for (int i = 0; i < this.elements.length; i++) {
             if (this.elements[i].equals(e)) {
@@ -39,7 +70,14 @@ public class Railway {
         return -1;
 	}
 	
-	
+	/**
+	 * 
+	 * Returns an element of the railway corresponding to the index given.
+	 * If the index doesn't exist, it returns a null element.
+	 * 
+	 * @param index Index of an element in the element
+	 * @return The element corresponding to the index (or null if no such index exist)
+	 */
 	public Element getElement(int index) {
 		try {
 		return elements[index];
@@ -48,6 +86,11 @@ public class Railway {
 		}
 	}
 	
+	/**
+	 * 
+	 * Method that initializes the stations linked to a railway.
+	 * It sees all the elements of a railway and extracts the stations in its own List
+	 */
 	public void initStations() {
 	    List<Element> stations = new ArrayList<>();
 	    for (int i = 0; i < this.getSize(); i++) {
@@ -59,6 +102,12 @@ public class Railway {
 	    this.stations = stations.toArray(new Element[0]);
 	}
 	
+	
+	/**
+	 * 
+	 * Method that creates new subrailways based on the elements of a railway,
+	 * using stations as delimiters of each subrailway
+	 */
 	public void setSubRailways() {
 	    List<SubRailway> subRailways = new ArrayList<>();
 	    List<Element> subRailwayElements = new ArrayList<>();
@@ -99,11 +148,25 @@ public class Railway {
 	    this.subRailways = subRailways.toArray(new SubRailway[0]);
 	}
 	
-	
+	/**
+	 * 
+	 * Return the list of subrailways of a railway.
+	 * 
+	 * @return The list of subrailways of a railway.
+	 */
 	public SubRailway[] getSubRailways() {
 		return subRailways;
 	}
 	
+	/**
+	 * 
+	 * Returns the subrailway that an element belongs to, else throws
+	 * an IllegalStateException if it doesn't exist in the railway or in any subrailway
+	 * 
+	 * @param p the element that we want to get the subrailway of 
+	 * @return The subrailway on which the element exist
+	 * @throws IllegalStateException if the element doesn't exist in the railway or in any subrailway
+	 */
 	public SubRailway getSubRailway(Element p) {
 	    Element currentElement = p;
 	    int elementIndex = -1;
@@ -135,12 +198,23 @@ public class Railway {
 	    throw new IllegalStateException("SubRailway not found for the given position.");
 	}
 
-	
+	/**
+	 * 
+	 * Return the list of stations of a railway.
+	 * 
+	 * @return The list of stations of a railway.
+	 */
 	public Element[] getStations() {
 		return this.stations;
 	}
 	
-
+	/**
+	 * 
+	 * Method that checks whether all trains are in a station
+	 * (via seeing if a section is occupied or not).
+	 * 
+	 * @return a Boolean that checks whether all trains are in a station or not 
+	 */
     private boolean allTrainsInStations() {
         for (Element element : elements) {
             if (element instanceof Section && element.getIsOccupied()) {
@@ -150,6 +224,11 @@ public class Railway {
         return true;
     }
 
+    /**
+     * Method that encodes the elements of the railway on a String
+     * 
+     * @return String that lists the elements of the railway
+     */
 	@Override
 	public String toString() {
 		StringBuilder result = new StringBuilder();

@@ -1,20 +1,44 @@
 package train;
 
+/**
+ * 
+ * Class that defines the UI used to visualize the railway
+ * 
+ * 
+ * Authors of the new implementation 
+ * @author Othmane EL AKRABA <othmane.el-akraba@imt-atlantique.net>
+ * @author Soufiane LACHGUER <soufiane.lachguer@imt-atlantique.net>
+ */
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
 public class RailwayVisualization extends JPanel {
+	
+	//Initialize the railway that we want to visualize
     private final Railway railway;
-    private final Map<String, TrainInfo> trainPositions; // Stores train positions and directions
-
+    
+    // Stores train positions and directions
+    private final Map<String, TrainInfo> trainPositions; 
+    
+    /**
+	 * 
+	 * Constructor that initializes the elements used in the UI
+	 * 
+	 * @param railway The visualized railway 
+	 */
     public RailwayVisualization(Railway railway) {
         this.railway = railway;
         this.trainPositions = new HashMap<>();
         setPreferredSize(new Dimension(800, 200)); // Set the size of the panel
     }
-
+    
+    /**
+     * Method that paint the components on the screen 
+     * 
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -22,6 +46,12 @@ public class RailwayVisualization extends JPanel {
         drawTrains(g);
     }
 
+    /**
+     * 	
+     * Method that draws the railway and its elements
+     * 
+     * @param g used graphics
+     */
     private void drawRailway(Graphics g) {
         int y = 100; // Vertical position of the railway
         int xStart = 50;
@@ -40,6 +70,12 @@ public class RailwayVisualization extends JPanel {
         }
     }
 
+    /**
+     * 	
+     * Method that draws the train
+     * 
+     * @param g used graphics
+     */
     private void drawTrains(Graphics g) {
         int y = 100; // Vertical position of the railway
         int xStart = 50;
@@ -61,13 +97,22 @@ public class RailwayVisualization extends JPanel {
             g.drawString(trainName, x, y - 20); // Train name
         }
     }
-
+    
+    /**
+     * Method that updates the train's position on the screen 
+     * 
+     * @param trainName the train's name
+     * @param elementIndex the new element's index
+     * @param direction the train's direction
+     */
     public void updateTrainPosition(String trainName, int elementIndex, Direction direction) {
         trainPositions.put(trainName, new TrainInfo(elementIndex, direction)); // Update train position and direction
         repaint(); // Redraw the panel
     }
 
-    // Helper class to store train information
+    /**
+     * Helper class to store train information
+     */
     private static class TrainInfo {
         int position;
         Direction direction;
