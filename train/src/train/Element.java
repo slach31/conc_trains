@@ -95,7 +95,7 @@ public abstract class Element {
 	}
 	
 	/**
-	 * Method that changes the status of the element to be free 
+	 * Method that changes the status of the element to be occupied 
 	 * and notifies all the trains of the change.
 	 * Note that the train can only enter if the invariant is verified (and that the invariant depends
 	 * on the direction of the entering train) 
