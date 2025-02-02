@@ -18,63 +18,72 @@ package train;
  * @version 0.3
  */
 public class Train extends Thread {
-	private final String name;
-	private final Position pos;
+    private final String name;
+    private final Position pos;
 
-	public Train(String name, Position p) throws BadPositionForTrainException {
-		if (name == null || p == null)
-			throw new NullPointerException();
+    public Train(String name, Position p) throws BadPositionForTrainException {
+        if (name == null || p == null)
+            throw new NullPointerException();
 
-		// A train should be first be in a station
-		if (!(p.getPos() instanceof Station))
-			throw new BadPositionForTrainException(name);
+        // A train should first be in a station
+        if (!(p.getPos() instanceof Station))
+            throw new BadPositionForTrainException(name);
 
-		this.name = name;
-		this.pos = p.clone();
-		this.pos.occupy();
-	}
-	
-	public void run() {
-		while (true) {
-			this.advance();
-			this.turnAround();
-		}
-	}
-	
-	public void advance() {
-		try {
-			sleep(1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		Direction d = this.pos.getDirection();
-		Element p = this.pos.getPos();
-		
-		Element[] adjacents = p.getAdjacent();
-		
-		if (d == Direction.LR) {
-			this.pos.updatePosition(adjacents[1]);
-		}
-		else {
-			this.pos.updatePosition(adjacents[0]);
-		}
-	}
-	
-	public void turnAround() {
-		Element p = this.pos.getPos();
-		if (p.getClass() == Station.class) {
-			this.pos.turnAround();
-		}
-	}
+        this.name = name;
+        this.pos = p.clone();
+        this.pos.occupy();
+    }
 
-	@Override
-	public String toString() {
-		StringBuilder result = new StringBuilder("Train[");
-		result.append(this.name);
-		result.append("]");
-		result.append(" is on ");
-		result.append(this.pos);
-		return result.toString();
-	}
+    public void run() {
+        while (true) {
+            this.advance();
+            this.turnAround();
+        }
+    }
+
+    public void advance() {
+        try {
+            sleep(1000);
+        } catch (InterruptedException e) {}
+        
+        Direction d = this.pos.getDirection();
+        Element p = this.pos.getPos();
+        
+        Element[] adjacents = p.getAdjacent();
+        
+        if (d == Direction.LR) {
+            this.pos.updatePosition(adjacents[1]);
+        }
+        else {
+            this.pos.updatePosition(adjacents[0]);
+        }
+    }
+
+    public void turnAround() {
+        Element p = this.pos.getPos();
+        
+        if (p instanceof Station) {
+            Element[] adjacents = p.getAdjacent();
+    
+            if (this.pos.getDirection() == Direction.LR && adjacents[1] instanceof Section) {
+                return;
+            }
+            if (this.pos.getDirection() == Direction.RL && adjacents[0] instanceof Section) {
+                return;
+            }
+            this.pos.turnAround();
+        }
+    }
+
+    public Position getPosition() {
+        return this.pos;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder("Train[");
+        result.append(this.name);
+        result.append("]");
+        return result.toString();
+    }
 }

@@ -9,27 +9,20 @@ package train;
  * @author Philippe Tanguy <philippe.tanguy@imt-atlantique.fr>
  */
 public class Station extends Element {
-<<<<<<< Updated upstream
-	private final int size;
-
-	public Station(String name, int size) {
-		super(name);
-		if(name == null || size <=0)
-			throw new NullPointerException();
-		this.size = size;
-	}
-}
-=======
     private final int size;
     private volatile int trainCount = 0;
     private volatile int trainsHeadedHere = 0;  // New field to track incoming trains
 
+    
+
     public Station(String name, int size) {
         super(name);
-        if(size <= 0) throw new IllegalArgumentException();
+        if(size <= 0)
+            throw new IllegalArgumentException();
         this.size = size;
     }
 
+    
     public synchronized void incrementTrainCount() {
         trainCount++;
         trainsHeadedHere--; // Decrement when train arrives
@@ -79,4 +72,3 @@ public class Station extends Element {
         return size;
     }
 }	
->>>>>>> Stashed changes

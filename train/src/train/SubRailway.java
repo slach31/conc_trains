@@ -26,7 +26,10 @@ public class SubRailway {
         this.elements = elements;
         for (Element e : elements) {
             e.setSubRailway(this);
+            System.out.println(e + " set to " +this.toString());
         }
+        
+        System.out.println(this.toString());
     }
 
     public synchronized Direction getCurrentDirection() {
@@ -36,6 +39,15 @@ public class SubRailway {
     public synchronized void switchDirection() {
         if (this.allTrainsInStations()) {  // Only switch if no trains in sections
             direction = (direction == Direction.LR) ? Direction.RL : Direction.LR;
+            System.out.println("Changed direction to " + direction);
+            notifyAll();
+        }
+    }
+    
+    public synchronized void setDirection(Direction d) {
+    	System.out.println(" i am being reached");
+        if (this.allTrainsInStations()) {  // Only switch if no trains in sections
+            direction = d;
             System.out.println("Changed direction to " + direction);
             notifyAll();
         }
@@ -71,6 +83,7 @@ public class SubRailway {
     private boolean allTrainsInStations() {
         for (Element element : elements) {
             if (element instanceof Section && element.getIsOccupied()) {
+            	System.out.println(element + " is the stinky loser");
                 return false;
             }
         }
@@ -89,5 +102,15 @@ public class SubRailway {
 
     public synchronized int getTrainCount() {
         return trainCount.get();
+    }
+    
+    @Override
+    public String toString() {
+    	StringBuilder result = new StringBuilder("Subrail[");
+    	result.append(this.elements[0]);
+    	result.append("-");
+    	result.append(this.elements[this.elements.length - 1]);
+        result.append("]");
+    	return result.toString();
     }
 }

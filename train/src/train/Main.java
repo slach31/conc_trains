@@ -2,47 +2,22 @@ package train;
 
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+
 /**
  * @author Fabien Dagnat <fabien.dagnat@imt-atlantique.fr>
  */
 public class Main {
-<<<<<<< Updated upstream
 	public static void main(String[] args) {
-		Station A = new Station("GareA", 3);
-		Station D = new Station("GareD", 3);
-		Section AB = new Section("AB");
-		Section BC = new Section("BC");
-		Section CD = new Section("CD");
-		Railway r = new Railway(new Element[] { A, AB, BC, CD, D });
-		System.out.println("The railway is:");
-		System.out.println("\t" + r);
-		Position p = new Position(A, Direction.LR);
-		try {
-			Train t1 = new Train("1", p);
-			t1.start();
-			Train t2 = new Train("2", p);
-			t2.start();
-			Train t3 = new Train("3", p);
-			t3.start();
-			
-		} catch (BadPositionForTrainException e) {
-			System.out.println("Le train " + e.getMessage());
-		}
-
-	}
-}
-=======
-    public static void main(String[] args) {
         Station A = new Station("GareA", 3);
         Station D = new Station("GareD", 2);
-        Station G = new Station("GareG", 2);
+        Station F = new Station("GareF", 2);
         Section AB = new Section("AB");
         Section BC = new Section("BC");
         Section CD = new Section("CD");
         Section DE = new Section("DE");
         Section EF = new Section("EF");
-        Section FG = new Section("FG");
-        Railway r = new Railway(new Element[] { A, AB, BC, CD, D, DE, EF, FG, G });
+        Railway r = new Railway(new Element[] { A, AB, BC, CD, D, DE, EF, F});
 
         // Create the Swing GUI
         JFrame frame = new JFrame("Railway Visualization");
@@ -89,4 +64,4 @@ public class Main {
         }
     }
 }
->>>>>>> Stashed changes
+    
