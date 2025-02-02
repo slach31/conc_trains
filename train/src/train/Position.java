@@ -22,7 +22,22 @@ package train;
 public class Position implements Cloneable {
 	private Direction direction;
 	private Element pos;
+<<<<<<< Updated upstream
 
+=======
+	
+	private SubRailway currentSubrailWay;
+	
+	/**
+	 * 
+	 * Constructor that initializes a position with a direction and an element 
+	 * If either are null, then a NullPointerException is thrown
+	 * 
+	 * @param elt Element occupied by a train
+	 * @param d direction of the train
+	 * @throws NullPointerException if either entries are null
+	 */
+>>>>>>> Stashed changes
 	public Position(Element elt, Direction d) {
 		if (elt == null || d == null)
 			throw new NullPointerException();
@@ -50,17 +65,53 @@ public class Position implements Cloneable {
 	}
 	
 	public synchronized void updatePosition(Element p) {
+<<<<<<< Updated upstream
 		if (p.getClass() == Section.class) {
 	    	p.enter(this.direction);
 	    }
+=======
+		p.enter(p, this);
+>>>>>>> Stashed changes
 		
 	    this.pos.leave();
 	    
 	    this.pos = p;
 	    
+	    this.updateSubRailway();
+	    
 	    System.out.println(Thread.currentThread().getName() + " at: " + this.pos.toString());
 	}
 	
+<<<<<<< Updated upstream
+=======
+	
+	public synchronized void updateSubRailway() {
+		this.currentSubrailWay = direction==Direction.RL ? pos.subRailways.get(pos.subRailways.size() - 1)  : pos.subRailways.get(0);
+	}
+	
+	
+	public SubRailway getSubRailway() {
+		return this.currentSubrailWay;
+	}
+	
+	public int getSubRailwayCount() {
+		return this.currentSubrailWay.getTrainCount();
+	}
+	
+	/**
+     * Get the next element in the train's direction.
+     */
+    private Element getNextElementInDirection(Direction d) {
+        Element[] adjacents = this.pos.getAdjacent();
+        return (d == Direction.LR) ? adjacents[1] : adjacents[0];
+    }
+	
+	/**
+	 * Method that updates the train's direction and notifies all trains on the same railway
+	 * 
+	 * @param d New updated direction
+	 */
+>>>>>>> Stashed changes
 	public synchronized  void updateDirection(Direction d) {
 		this.direction = d;
 		if (this.pos.getClass() == Station.class) {

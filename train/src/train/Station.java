@@ -9,6 +9,7 @@ package train;
  * @author Philippe Tanguy <philippe.tanguy@imt-atlantique.fr>
  */
 public class Station extends Element {
+<<<<<<< Updated upstream
 	private final int size;
 
 	public Station(String name, int size) {
@@ -18,3 +19,64 @@ public class Station extends Element {
 		this.size = size;
 	}
 }
+=======
+    private final int size;
+    private volatile int trainCount = 0;
+    private volatile int trainsHeadedHere = 0;  // New field to track incoming trains
+
+    public Station(String name, int size) {
+        super(name);
+        if(size <= 0) throw new IllegalArgumentException();
+        this.size = size;
+    }
+
+    public synchronized void incrementTrainCount() {
+        trainCount++;
+        trainsHeadedHere--; // Decrement when train arrives
+        //System.out.println("Station " + this + " now has " + trainCount + "/" + size + " trains");
+        notifyAll();
+    }
+
+    public synchronized void decrementTrainCount() {
+        if (trainCount > 0) {
+            trainCount--;
+            //System.out.println("Station " + this + " now has " + trainCount + "/" + size + " trains");
+            notifyAll();
+        }
+    }
+
+    public boolean canAcceptMoreTrains() {
+        return (trainCount + trainsHeadedHere) < size;
+    }
+
+    public synchronized void registerIncomingTrain() {
+        trainsHeadedHere++;
+        //System.out.println("Station " + this + " expecting " + trainsHeadedHere + " trains");
+        notifyAll();
+    }
+
+    public synchronized void unregisterIncomingTrain() {
+        if (trainsHeadedHere > 0) {
+            trainsHeadedHere--;
+            //System.out.println("Station " + this + " now expecting " + trainsHeadedHere + " trains");
+            notifyAll();
+        }
+    }
+
+    public int getTrainCount() {
+        return trainCount;
+    }
+
+    public boolean isFull() {
+        return trainCount >= size;
+    }
+
+    public int getAvailableSpace() {
+        return Math.max(0, size - trainCount);
+    }
+
+    public int getSize() {
+        return size;
+    }
+}	
+>>>>>>> Stashed changes
