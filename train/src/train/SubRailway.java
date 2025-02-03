@@ -63,7 +63,7 @@ public class SubRailway {
     public synchronized void switchDirection() {
         if (this.allTrainsInStations()) {  // Only switch if no trains in sections
             direction = (direction == Direction.LR) ? Direction.RL : Direction.LR;
-            System.out.println(Thread.currentThread().getName() + "changed direction to " + direction);
+            System.out.println(Thread.currentThread().getName() + " changed direction to " + direction);
             notifyAll();
         }
     }

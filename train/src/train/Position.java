@@ -102,7 +102,7 @@ public class Position implements Cloneable {
     }
 
     /**
-	 * TO DO LATER
+	 * Method that updates the subrailway on which the train runs to
 	 * 
 	 */
     public synchronized void updateSubRailway() {
