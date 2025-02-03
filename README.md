@@ -10,10 +10,10 @@ To actrivate the simulation, first clone the project from Github using this comm
 git clone https://github.com/slach31/conc_trains
 Import the project on your IDE's workspace.
 Now you can simulate your concurrent trains, to do so open the train package and run the main file.
-You can see that stations, sections, railways and trains are already created and their values are set by default, if you want to change their values and try a simulation with a different number of elements, you can do so by editing the class main.
+You can see that stations, sections, railways and trains are already created and their values are set by default. If you want to change their values and try a simulation with a different number of elements, you can do so by editing the class main.
 
 ## Development
-This project is developed by Othmane EL AKRABA and Soufiane LACHGUER, for a university project related to petri nets. It uses Java 23.0.1. Files are shared via Github.
+This project is developed by Othmane EL AKRABA and Soufiane LACHGUER, for a university project related to concurrency. It uses Java 23.0.1. Files are shared via Github.
 If you encounter any technical problems regarding this project, you can write to us at soufiane.lachguer@imt-atlantique.net or at othmane.el-akraba@imt-atlantique.net
 
 ## Conception
