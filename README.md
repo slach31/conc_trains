@@ -27,12 +27,3 @@ To give elements a sense of orientation, the `Direction` class enumerates possib
 
 Within this system, a `Train` object is a specialized thread that runs autonomously. Each train has a name and a `Position`, and its `run()` method handles the logic for moving the train along the track. Trains can advance from one element to another, turn around, and interact with the elements’ occupancy states. Stations (`Station`) are a specific type of element with an additional `size` attribute, potentially signifying capacity constraints. By combining all these classes, the diagram provides a framework to simulate multiple trains (as concurrent threads) moving along a railway, occupying stations or sections, and changing direction as needed.
 
-## Difficulties 
-
-In the case where the setup is : 
-Size 3 for gareA
-Size 2 for gareB
-Size 1 for gareC
-(and we have 3 trains)
-
-The system is blocked: each train tries to change the subrailway's direction (provided that it's empty). However, no train can move to the next station, in the case where 1 RL train is stationned in gareC and 2 LR trains are stationned in gareB  because the next destination is full. 
