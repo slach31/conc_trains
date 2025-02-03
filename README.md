@@ -3,7 +3,7 @@
 ## By Othmane EL AKRABA and Soufiane LACHGUER
 
 ## Concurrent trains
-In this code, we are trying to code trains running in a railway section using concurrent programming. In this model, each railway begins and ends with a train station. Between the stations are sections that trains can pass through. Only one train can pass through each section at a time, and all running trains need to be following the same direction of movement (either left to right or right to left) in each subrailway. Many trains cen be in the same train station however, but the maximum number of trains is fixed by the train's station maximum capacity.
+In this project, we are trying to code trains running in a railway section using concurrent programming. In this model, each railway begins and ends with a train station. Between the stations are sections that trains can pass through. Only one train can pass through each section at a time, and all running trains need to be following the same direction of movement (either left to right or right to left) in each subrailway (a subrailway is denoted by 2 station and **ONLY** section in between). Many trains cen be in the same train station however, but the maximum number of trains is fixed by the train's station maximum capacity.
 
 ## Quick Start
 To activate the simulation, first clone the project from Github using this command:
