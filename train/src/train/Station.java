@@ -71,8 +71,8 @@ public class Station extends Element {
     }
 
     /**
-     * TO DO LATER
-     * 
+     * Adds a new train to the trainsHeadingHere count
+     * (Used to manage how many can be present on a given subrailway)
      * 
      */
     public synchronized void registerIncomingTrain() {
@@ -82,8 +82,8 @@ public class Station extends Element {
     }
 
     /**
-     * TO DO LATER
-     * 
+     * Removes a train from the trainsHeadingHere count
+     * (Used to manage how many can be present on a given subrailway)
      * 
      */
     public synchronized void unregisterIncomingTrain() {
@@ -94,14 +94,6 @@ public class Station extends Element {
         }
     }
 
-    /**
-     * Returns the number of trains on the station
-     * 
-     * @return The number of trains on the station
-     */
-    public int getTrainCount() {
-        return trainCount;
-    }
 
     /**
      * Method that check whether a station is full (at max capacity) or not
@@ -121,12 +113,4 @@ public class Station extends Element {
         return Math.max(0, size - trainCount);
     }
 
-    /**
-     * Returns the size of the station
-     * 
-     * @return The size of the station
-     */
-    public int getSize() {
-        return size;
-    }
 }	

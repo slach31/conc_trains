@@ -135,11 +135,7 @@ public class Railway {
 	        }
 	    }
 
-	    // Handle the last subRailway if it exists
-	    if (!subRailwayElements.isEmpty()) {
-	        SubRailway subRailway = new SubRailway(subRailwayElements.toArray(new Element[0]));
-	        subRailways.add(subRailway);
-	    }
+	    
 	    
 	    this.subRailways = subRailways.toArray(new SubRailway[0]);
 	}

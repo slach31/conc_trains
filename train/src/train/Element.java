@@ -115,9 +115,9 @@ public abstract class Element {
     }
 
     /**
-	 * TO ADD LATER
+	 * The enter method, used to enter a new element
 	 *  
-	 * @param p the element on which the train is on 
+	 * @param p the element that the train is attempting to enter
 	 * @param pos The position of the entering train
 	 */
     public synchronized void enter(Element p, Position pos) {
@@ -144,8 +144,12 @@ public abstract class Element {
     
     /**
      * 
-     * TO ADD LATER
-     * 
+     * the security invarient
+     * Ensures that at a any given moment, no 2 trains can be on the same element,
+     * no 2 trains on the same subrailway can move in different directions,
+     * and that a train does'nt leave a station if there are N trains on the given subrailway
+     * where N is the size of said station.
+     * This ensures that trains don't interblock and operate as intended
      * @param p
      * @param pos
      * @return

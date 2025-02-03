@@ -41,10 +41,8 @@ public class SubRailway {
         this.elements = elements;
         for (Element e : elements) {
             e.setSubRailway(this);
-            System.out.println(e + " set to " +this.toString());
         }
         
-        System.out.println(this.toString());
     }
 
     /**
@@ -65,21 +63,20 @@ public class SubRailway {
     public synchronized void switchDirection() {
         if (this.allTrainsInStations()) {  // Only switch if no trains in sections
             direction = (direction == Direction.LR) ? Direction.RL : Direction.LR;
-            System.out.println("Changed direction to " + direction);
+            System.out.println(Thread.currentThread().getName() + "changed direction to " + direction);
             notifyAll();
         }
     }
     
     /**
-     * TO DO LATER 
+     * Method that changes the direction of the subrailway to the one specified in the argument 
      * 
      * @return
      */
     public synchronized void setDirection(Direction d) {
-    	System.out.println(" i am being reached");
         if (this.allTrainsInStations()) {  // Only switch if no trains in sections
             direction = d;
-            System.out.println("Changed direction to " + direction);
+            System.out.println(Thread.currentThread().getName() + "changed direction to " + direction);
             notifyAll();
         }
     }
@@ -107,16 +104,18 @@ public class SubRailway {
             if (trainCount.get() < destinationStation.getAvailableSpace()) {
                 trainsInSubRailway.add(trainPosition);
                 trainCount.incrementAndGet();
+                /**
                 System.out.println("SubRailway added train, count=" + trainCount.get() + 
                     ", destination=" + destinationStation + 
                     ", available space=" + destinationStation.getAvailableSpace());
+                **/
                 notifyAll();
             }
         }
     }
 
     /**
-     * TO DO LATER 
+     * Method that removes a train from the subrailway 
      * 
      * 
      * @param trainPosition
@@ -138,7 +137,6 @@ public class SubRailway {
     private boolean allTrainsInStations() {
         for (Element element : elements) {
             if (element instanceof Section && element.getIsOccupied()) {
-            	System.out.println(element + " is the stinky loser");
                 return false;
             }
         }
@@ -146,7 +144,8 @@ public class SubRailway {
     }
     
     /**
-     * TO DO LATER 
+     * Method that gives you the next station in the subrailway
+     * if the direction is Left to Right then the next station en route is the right station and vice versa 
      * 
      * @return
      */
@@ -172,7 +171,7 @@ public class SubRailway {
 	 * 
 	 * @return The train count of a subrailway.
 	 */
-    public synchronized int getTrainCount() {
+    public int getTrainCount() {
         return trainCount.get();
     }
     

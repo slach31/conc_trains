@@ -109,14 +109,6 @@ public class Position implements Cloneable {
 		this.currentSubrailWay = direction==Direction.RL ? pos.subRailways.get(pos.subRailways.size() - 1)  : pos.subRailways.get(0);
 	}
 
-    /**
-	 * Returns the current SubRailway that the train traverses 
-	 * 
-	 * @return the current SubRailway that the train traverses 
-	 */
-    public SubRailway getSubRailway() {
-        return this.currentSubrailWay;
-    }
 
     /**
    	 * Returns the count of the train that exist in the subrailway
