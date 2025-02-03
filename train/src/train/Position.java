@@ -62,13 +62,7 @@ public class Position implements Cloneable {
 		this.currentSubrailWay = direction==Direction.RL ? pos.subRailways.get(pos.subRailways.size() - 1)  : pos.subRailways.get(0);
 	}
 
-    public SubRailway getSubRailway() {
-        return this.currentSubrailWay;
-    }
 
-    public int getSubRailwayCount() {
-        return this.currentSubrailWay.getTrainCount();
-    }
 
     public synchronized void updateDirection(Direction d) {
         this.direction = d;

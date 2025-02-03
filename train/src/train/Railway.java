@@ -204,21 +204,6 @@ public class Railway {
 		return this.stations;
 	}
 	
-	/**
-	 * 
-	 * Method that checks whether all trains are in a station
-	 * (via seeing if a section is occupied or not).
-	 * 
-	 * @return a Boolean that checks whether all trains are in a station or not 
-	 */
-    private boolean allTrainsInStations() {
-        for (Element element : elements) {
-            if (element instanceof Section && element.getIsOccupied()) {
-                return false;
-            }
-        }
-        return true;
-    }
 
     /**
      * Method that encodes the elements of the railway on a String

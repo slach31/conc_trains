@@ -56,9 +56,6 @@ public class Station extends Element {
         }
     }
 
-    public int getTrainCount() {
-        return trainCount;
-    }
 
     public boolean isFull() {
         return trainCount >= size;
@@ -68,7 +65,4 @@ public class Station extends Element {
         return Math.max(0, size - trainCount);
     }
 
-    public int getSize() {
-        return size;
-    }
 }	

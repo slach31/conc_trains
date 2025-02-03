@@ -52,7 +52,7 @@ public class SubRailway {
             notifyAll();
         }
     }
-
+    // checks if the last station in the current subrailway has the capacity to house one more train
     public synchronized boolean canAcceptMoreTrains() {
         Station nextStation = (Station) getNextStation();
         return trainCount.get() < nextStation.getAvailableSpace();
@@ -100,9 +100,6 @@ public class SubRailway {
         return this.elements;
     }
 
-    public synchronized int getTrainCount() {
-        return trainCount.get();
-    }
     
     @Override
     public String toString() {
