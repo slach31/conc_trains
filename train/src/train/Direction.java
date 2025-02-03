@@ -6,6 +6,7 @@ package train;
  * 
  * @author Fabien Dagnat <fabien.dagnat@imt-atlantique.fr>
  * @author Philippe Tanguy <philippe.tanguy@imt-atlantique.fr>
+ * 
  */
 public enum Direction {
 	LR {

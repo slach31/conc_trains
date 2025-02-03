@@ -16,11 +16,26 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 
 public class SubRailway {
+	
+	// The direction of the subrailway, set left to right initially
     private Direction direction = Direction.LR;
+    
+    // The list of elements in a subrailway
     private final Element[] elements;
+    
+    // Set that tracks the trains in a subrailway
     private final Set<Position> trainsInSubRailway = Collections.synchronizedSet(new HashSet<>());
+    
+    // Count of the trains in a subrailway
     private final AtomicInteger trainCount = new AtomicInteger(0);
 
+    /**
+	 * 
+	 * Constructor that initializes a subrailway with an array of elements 
+	 * 
+	 * @param elements Elements of the railway (must not be null)
+	 * @throws NullPointerException If the entered array is null 
+	 */
     public SubRailway(Element[] elements) {
         if(elements == null) throw new NullPointerException();
         this.elements = elements;
@@ -32,10 +47,21 @@ public class SubRailway {
         System.out.println(this.toString());
     }
 
+    /**
+	 * 
+	 * Return the current direction of a subrailway.
+	 * 
+	 * @return The current direction of a subrailway.
+	 */
     public synchronized Direction getCurrentDirection() {
         return direction;
     }
 
+    /**
+	 * Method that switches the direction of the railway (if all trains are in a station),
+	 * and informs all trains of the switch
+	 * 
+	 */
     public synchronized void switchDirection() {
         if (this.allTrainsInStations()) {  // Only switch if no trains in sections
             direction = (direction == Direction.LR) ? Direction.RL : Direction.LR;
@@ -44,6 +70,11 @@ public class SubRailway {
         }
     }
     
+    /**
+     * TO DO LATER 
+     * 
+     * @return
+     */
     public synchronized void setDirection(Direction d) {
     	System.out.println(" i am being reached");
         if (this.allTrainsInStations()) {  // Only switch if no trains in sections
@@ -52,12 +83,23 @@ public class SubRailway {
             notifyAll();
         }
     }
-    // checks if the last station in the current subrailway has the capacity to house one more train
+
+    /**
+     * Method that check whether a subrailway can accept more trains or not, 
+     * 
+     * @return A boolean that encodes whether a subrailway can accept more trains or not. 
+     */
     public synchronized boolean canAcceptMoreTrains() {
         Station nextStation = (Station) getNextStation();
         return trainCount.get() < nextStation.getAvailableSpace();
     }
 
+    /**
+     * Method that adds a train to the subrailway (if there's space in the subrailway),
+     * and informs all trains of the change.
+     * 
+     * @param trainPosition The train's position on the subrailway
+     */
     public synchronized void addTrain(Position trainPosition) {
         if (trainPosition != null && !trainsInSubRailway.contains(trainPosition)) {
             Station destinationStation = (Station)getNextStation();
@@ -73,6 +115,12 @@ public class SubRailway {
         }
     }
 
+    /**
+     * TO DO LATER 
+     * 
+     * 
+     * @param trainPosition
+     */
     public synchronized void removeTrain(Position trainPosition) {
         if (trainPosition != null && trainsInSubRailway.remove(trainPosition)) {
             trainCount.decrementAndGet();
@@ -80,6 +128,13 @@ public class SubRailway {
         }
     }
 
+    /**
+   	 * 
+   	 * Method that checks whether all trains are in a station
+   	 * (via seeing if a section is occupied or not).
+   	 * 
+   	 * @return a Boolean that checks whether all trains are in a station or not 
+   	 */
     private boolean allTrainsInStations() {
         for (Element element : elements) {
             if (element instanceof Section && element.getIsOccupied()) {
@@ -89,18 +144,43 @@ public class SubRailway {
         }
         return true;
     }
-
+    
+    /**
+     * TO DO LATER 
+     * 
+     * @return
+     */
     public Element getNextStation() {
 		Element e = this.direction == Direction.LR ? this.elements[this.elements.length - 1] : this.elements[0];
 		//Station s = (Station) e;
 		return e;
 	}
 
+    /**
+	 * 
+	 * Return the list of elements of a subrailway.
+	 * 
+	 * @return The list of elements of a subrailway.
+	 */
     public Element[] getElements() {
         return this.elements;
     }
 
+    /**
+	 * 
+	 * Return the train count of a subrailway.
+	 * 
+	 * @return The train count of a subrailway.
+	 */
+    public synchronized int getTrainCount() {
+        return trainCount.get();
+    }
     
+    /**
+     * Method that encodes the elements of the subrailway on a String
+     * 
+     * @return String that lists the elements of the subrailway
+     */
     @Override
     public String toString() {
     	StringBuilder result = new StringBuilder("Subrail[");

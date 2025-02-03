@@ -14,44 +14,95 @@ import java.util.ArrayList;
  * 
  * @author Fabien Dagnat <fabien.dagnat@imt-atlantique.fr>
  * @author Philippe Tanguy <philippe.tanguy@imt-atlantique.fr>
+ * 
+ *  * Authors of the new implementation 
+ * @author Othmane EL AKRABA <othmane.el-akraba@imt-atlantique.net>
+ * @author Soufiane LACHGUER <soufiane.lachguer@imt-atlantique.net>
  */
 public abstract class Element {
+	
+	// Name of the element
     private final String name;
+    
+    // Railway that the element belongs to
     protected Railway railway;
+    
+    // SubRailway List
     protected ArrayList<SubRailway> subRailways = new ArrayList<>();
+    
+    // boolean to see if an element is occupied by a train 
     protected boolean isOccupied = false;
 
+    /**
+	 * 
+	 * Constructor that initializes an element with a name.
+	 * If a name isn't given, it will throw a NullPointerException.
+	 * 
+	 * @param name Name of the Element
+	 */
     protected Element(String name) {
         if(name == null)
             throw new NullPointerException();
         this.name = name;
     }
 
+    /**
+	 * Method that appoints an element to a specific railway.
+	 * If the railway isn't given, it will throw a NullPointerException.
+	 * 
+	 * @param r The railway to be assigned to
+	 * @throws NullPointerException if a railway isn't given
+	 */
     public void setRailway(Railway r) {
         if(r == null)
             throw new NullPointerException();
         this.railway = r;
     }
 
+    /**
+	 * Method that appoints an element to a specific subrailway.
+	 * If the subrailway isn't given, it will throw a NullPointerException.
+	 * 
+	 * @param r The subrailway to be assigned to
+	 * @throws NullPointerException if a subrailway isn't given
+	 */
     public void setSubRailway(SubRailway r) {
         if(r == null)
             throw new NullPointerException();
         this.subRailways.add(r);
     }
 
+    /**
+	 * Returns whether the element is occupied of not
+	 * @return Boolean informing whether the element is occupied or not
+	 */
     public boolean getIsOccupied() {
         return isOccupied;
     }
 
+    /**
+	 * Changes the status of the element (the boolean isOccupied)
+	 * and notifies all trains on the railway 
+	 * 
+	 * @param b The new value of the boolean isOccupied
+	 */
     public synchronized void setIsOccupied(boolean b) {
         this.isOccupied = b;
         notifyAll();
     }
 
+    /**
+	 * Returns the railway that the element belongs to 
+	 * @return The railway that the element belongs to 
+	 */
     public Railway getRailway() {
         return this.railway;
     }
 
+    /**
+	 * Method that changes the status of the element to be free 
+	 * and notifies all the trains of the change
+	 */
     public synchronized void leave() {
         if (this instanceof Station) {
             Station station = (Station)this;
@@ -63,6 +114,12 @@ public abstract class Element {
         notifyAll();
     }
 
+    /**
+	 * TO ADD LATER
+	 *  
+	 * @param p the element on which the train is on 
+	 * @param pos The position of the entering train
+	 */
     public synchronized void enter(Element p, Position pos) {
     	pos.updateSubRailway();
     	
@@ -84,7 +141,15 @@ public abstract class Element {
             this.isOccupied = true;
         }
     }
-
+    
+    /**
+     * 
+     * TO ADD LATER
+     * 
+     * @param p
+     * @param pos
+     * @return
+     */
     public boolean invariant(Element p, Position pos) {
         // Check if element is occupied
         if (this.isOccupied) {
@@ -119,6 +184,11 @@ public abstract class Element {
     }
 
 
+    /**
+	 * 
+	 * Returns an array that contains the adjacent elements (sections or railways)
+	 * @return Array that contains the adjacent elements (sections or railways)
+	 */
     public Element[] getAdjacent() {
         int index = this.railway.getIndex(this);
         int length = this.railway.getSize();
@@ -139,6 +209,9 @@ public abstract class Element {
         return new Element[] {left, right};
     }
 
+    /**
+	 * Returns a String containing the name of the element
+	 */
     @Override
     public String toString() {
         return this.name;

@@ -16,15 +16,30 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RailwayVisualization extends JPanel {
+	
+	//Initialize the railway that we want to visualize
     private final Railway railway;
+    
+    // Stores train positions and directions
     private final Map<String, TrainInfo> trainPositions;
 
+    
+    /**
+   	 * 
+   	 * Constructor that initializes the elements used in the UI
+   	 * 
+   	 * @param railway The visualized railway 
+   	 */
     public RailwayVisualization(Railway railway) {
         this.railway = railway;
         this.trainPositions = new HashMap<>();
         setPreferredSize(new Dimension(800, 200));
     }
 
+    /**
+     * Method that paint the components on the screen 
+     * 
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -36,7 +51,13 @@ public class RailwayVisualization extends JPanel {
         // Finally draw trains on top
         drawTrains(g);
     }
-
+    
+    /**
+     * 	
+     * Method that draws the railway and its elements
+     * 
+     * @param g used graphics
+     */
     private void drawRailwayLines(Graphics g) {
         int y = 100;
         int xStart = 50;
@@ -67,6 +88,12 @@ public class RailwayVisualization extends JPanel {
         }
     }
 
+    /**
+     * 	
+     * Method that draws the elements' names 
+     * 
+     * @param g used graphics
+     */
     private void drawElementNames(Graphics g) {
         int y = 100;
         int xStart = 50;
@@ -80,6 +107,12 @@ public class RailwayVisualization extends JPanel {
         }
     }
 
+    /**
+     * 	
+     * Method that draws the train
+     * 
+     * @param g used graphics
+     */
     private void drawTrains(Graphics g) {
         int y = 100;
         int xStart = 50;
@@ -102,11 +135,21 @@ public class RailwayVisualization extends JPanel {
         }
     }
 
+    /**
+     * Method that updates the train's position on the screen 
+     * 
+     * @param trainName the train's name
+     * @param elementIndex the new element's index
+     * @param direction the train's direction
+     */
     public void updateTrainPosition(String trainName, int elementIndex, Direction direction) {
         trainPositions.put(trainName, new TrainInfo(elementIndex, direction));
         repaint();
     }
 
+    /**
+     * Helper class to store train information
+     */
     private static class TrainInfo {
         int position;
         Direction direction;

@@ -4,8 +4,15 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
-/**
- * @author Fabien Dagnat <fabien.dagnat@imt-atlantique.fr>
+/** * @author Fabien Dagnat <fabien.dagnat@imt-atlantique.fr>
+ * 
+ * Main function to give an example of the model's functioning 
+ * via an added JFrame for visualization
+ * 
+ * 
+ * Authors of the new implementation 
+ * @author Othmane EL AKRABA <othmane.el-akraba@imt-atlantique.net>
+ * @author Soufiane LACHGUER <soufiane.lachguer@imt-atlantique.net>
  */
 public class Main {
 	public static void main(String[] args) {
