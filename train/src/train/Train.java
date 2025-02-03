@@ -13,7 +13,6 @@ package train;
  * 
  * @author Fabien Dagnat <fabien.dagnat@imt-atlantique.fr>
  * @author Mayte segarra <mt.segarra@imt-atlantique.fr>
- * Test if the first element of a train is a station
  * @author Philippe Tanguy <philippe.tanguy@imt-atlantique.fr>
  * @version 0.3
  * 
