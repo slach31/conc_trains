@@ -97,7 +97,6 @@ public class Position implements Cloneable {
 	    
 	    this.pos = p;
 	    
-	    System.out.println(Thread.currentThread().getName() + " at: " + this.pos.toString());
 	}
 	
 	/**

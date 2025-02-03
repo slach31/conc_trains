@@ -105,7 +105,6 @@ public abstract class Element {
 	 */
 	public synchronized void enter(Direction d) {
 		while (!this.invariant(d)) {
-			System.out.println(Thread.currentThread().getName() + " waiting");
 			try {
 				wait();
 			} catch (InterruptedException e) {}

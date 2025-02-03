@@ -63,6 +63,7 @@ public class Train extends Thread {
 		while (true) {
 			this.advance();
 			this.turnAround();
+			System.out.println(this.toString());
 		}
 	}
 	
