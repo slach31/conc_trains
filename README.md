@@ -17,6 +17,6 @@ This project is developed by Othmane EL AKRABA and Soufiane LACHGUER, for a univ
 If you encounter any technical problems regarding this project, you can write to us at soufiane.lachguer@imt-atlantique.net or at othmane.el-akraba@imt-atlantique.net
 
 ## Conception
-This image shows the class diagramm obtained at the development stage :
+This image shows the class diagramm used to develop this model :
 
-<To Import LATER>
+![Alt text](img/class_diagramm.png)
