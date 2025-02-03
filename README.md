@@ -1,4 +1,4 @@
-# TP CONC mu project
+# TP CONC mu project ex 3
 
 ## By Othmane EL AKRABA and Soufiane LACHGUER
 
@@ -20,3 +20,9 @@ If you encounter any technical problems regarding this project, you can write to
 This image shows the class diagramm used to develop this model :
 
 ![Alt text](img/class_diagramm.png)
+
+This class diagram models a simple railway system in which trains, running on separate threads, move across various elements such as stations and track sections. At the highest level, a `Railway` object manages an array of `Element` objects and provides functionality like retrieving elements by index, checking if all trains are currently in stations, and switching direction. Each `Element` in the railway can be either a `Section` or a `Station`, and it holds information such as a name and whether it is currently occupied by a train. Elements also provide methods that control train occupancy (like entering or leaving) and enforce certain constraints via an `invariant` check on direction and occupancy.
+
+To give elements a sense of orientation, the `Direction` class enumerates possible directions—left-to-right (LR) or right-to-left (RL). Meanwhile, the `Position` class pairs an `Element` with a `Direction` and offers functionality like updating the element or direction, turning around, and marking an element as occupied. Notably, `Position` implements the `Cloneable` interface, allowing positions to be duplicated if necessary.
+
+Within this system, a `Train` object is a specialized thread that runs autonomously. Each train has a name and a `Position`, and its `run()` method handles the logic for moving the train along the track. Trains can advance from one element to another, turn around, and interact with the elements’ occupancy states. Stations (`Station`) are a specific type of element with an additional `size` attribute, potentially signifying capacity constraints. By combining all these classes, the diagram provides a framework to simulate multiple trains (as concurrent threads) moving along a railway, occupying stations or sections, and changing direction as needed.
