@@ -35,3 +35,13 @@ This diagram outlines a more comprehensive railway simulation system where train
 A **SubRailway** groups together a set of elements under a specific `Direction`, maintaining a list of the trains currently on those elements. It can add or remove train positions, determine whether all trains are at stations, and retrieve individual elements or stations. Meanwhile, the `Position` class encapsulates both an `Element` and a `Direction`, allowing trains to be placed precisely on the railway and reoriented (e.g., turning around). `Position` also implements `Cloneable` so that train positions can be duplicated if necessary.
 
 Each **Train** runs on its own thread, using its `Position` to move incrementally along the railway. It exposes operations such as `advance()` (to progress to the next element), `turnAround()` (to change direction), and `run()` (defining the train’s main execution loop). The system also includes a **RailwayVisualization** component (extending `JPanel`), which handles graphical representation: storing each train’s position and direction, and drawing the railway, its sections, and trains accordingly. This allows a real-time or interactive view of trains moving across different sub-railways, stations, and track elements.
+
+## Difficulties 
+
+In the case where the setup is : 
+Size 3 for gareA
+Size 2 for gareB
+Size 1 for gareC
+(and we have 3 trains)
+
+The system is blocked: each train tries to change the subrailway's direction (provided that it's empty). However, no train can move to the next station, in the case where 1 RL train is stationned in gareC and 2 LR trains are stationned in gareB  because the next destination is full. 
