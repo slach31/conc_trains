@@ -6,9 +6,9 @@
 In this code, we are trying to code trains running in a railway section using concurrent programming. In this model, each railway begins and ends with a train station. Between the stations are sections that trains can pass through. Only one train can pass through each section at a time, and all running trains need to be following the same direction of movement (either left to right or right to left). Many trains cen be in the same train station however, but the maximum number of trains is fixed by the train's station maximum capacity.
 
 ## Quick Start
-To actrivate the simulation, first clone the project from Github using this command:
+To activate the simulation, first clone the project from Github using this command:
 git clone https://github.com/slach31/conc_trains
-Import the project on your IDE's workspace.
+Import the project on your IDE's workspace (and switch to the branch ex3).
 Now you can simulate your concurrent trains, to do so open the train package and run the main file.
 You can see that stations, sections, railways and trains are already created and their values are set by default. If you want to change their values and try a simulation with a different number of elements, you can do so by editing the class main.
 
